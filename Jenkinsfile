@@ -31,9 +31,18 @@ pipeline{
         stage("Invoke Lambda"){
             steps{
                 echo "Invoking your AWS Lambda"
-                script {
-          sh(script: 'aws lambda invoke --function-name test --log-type Tail --payload '{}' response.json')          
-        } 
+                sh '''
+                    # Payload data
+                    PAYLOAD='{
+                        "subnet_id": "10.0.1.0/24",
+                        "name": "swapnil kale",
+                        "email": "swapnilkale2504@gmail.com"
+                    }'
+                    HEADER='X-Siemens-Auth:test'
+                    URL='https://2xfhzfbt31.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data'
+                    RESPONSE=$(curl -sS -X POST -H "${HEADER}" -H "Content-Type: application/json" -d "${PAYLOAD}" "${URL}")
+                    echo ${RESPONSE}
+                '''
                 
             }
         }
