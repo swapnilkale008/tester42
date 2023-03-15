@@ -30,20 +30,28 @@ pipeline{
         }
         stage("Invoke Lambda"){
             steps{
-                echo "Invoking your AWS Lambda"
-                sh '''
-                    # Payload data
-                    PAYLOAD='{
+               sh '''
+                    #!/usr/bin/env python3
+                    
+                    import requests
+                    # Define the API endpoint URL
+                    url = "https://2xfhzfbt31.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data"
+                    # Define the payload data
+                    payload = {
                         "subnet_id": "10.0.1.0/24",
                         "name": "swapnil kale",
                         "email": "swapnilkale2504@gmail.com"
-                    }'
-                    HEADER='X-Siemens-Auth:test'
-                    URL='https://2xfhzfbt31.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data'
-                    RESPONSE=$(curl -sS -X POST -H "${HEADER}" -H "Content-Type: application/json" -d "${PAYLOAD}" "${URL}")
-                    echo ${RESPONSE}
+                    }
+                 
+                    headers = {
+                        "X-Siemens-Auth": "test"
+                    }
+                 
+                    response = requests.post(url, json=payload, headers=headers)
+                  
+                    print(f"Response status code: {response.status_code}")
+                    print(f"Response content: {response.content}")
                 '''
-                
             }
         }
     }
