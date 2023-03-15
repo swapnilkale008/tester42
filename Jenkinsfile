@@ -19,7 +19,7 @@ pipeline{
         stage("TF Plan"){
             steps{
                 echo "Executing Terraform Plan"
-                'terraform plan'
+                sh 'terraform plan'
             }
         }
         stage("TF Apply"){
