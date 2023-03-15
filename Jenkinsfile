@@ -32,6 +32,9 @@ pipeline{
             steps{
                 echo "Invoking your AWS Lambda"
                 sh 'aws lambda invoke --function-name <Your Lambda Function Name> --log-type Tail --payload '{}' response.json'
+                script {
+          sh(script: 'aws lambda invoke --function-name <Your Lambda Function Name> --log-type Tail --payload '{}' response.json')          
+        } 
                 
             }
         }
