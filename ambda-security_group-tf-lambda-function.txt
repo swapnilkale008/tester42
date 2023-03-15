@@ -140,3 +140,10 @@ resource "aws_security_group" "example" {
   }
 }
 
+--------
+
+
+
+aws lambda invoke --function-name <Your Lambda Function Name> --log-type Tail --payload '{}' response.json
+
+
