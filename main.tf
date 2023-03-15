@@ -20,7 +20,7 @@ resource "aws_route_table_association" "private" {
 }
 
 # create the Lambda function
-resource "aws_lambda_function" "example" {
+resource "aws_lambda_function" "test" {
   filename         = "test.zip"
   function_name    = "test_function"
   role             = data.aws_iam_role.lambda.arn
@@ -29,7 +29,6 @@ resource "aws_lambda_function" "example" {
   source_code_hash = filebase64sha256("test.zip")
 }
 
-# create the security group
 resource "aws_security_group" "test" {
   name_prefix = "security_group"
   vpc_id      = data.aws_vpc.vpc.id
