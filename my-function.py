@@ -15,34 +15,3 @@ def lambda_handler(event, context):
     print(response.text)
    
 
-
-pipeline {
-    agent any
-
-    stages {
-        stage('Invoke API Endpoint') {
-            steps {
-                sh '''
-                    # Payload data
-                    PAYLOAD='{
-                        "subnet_id": "<Your Private Subnet ID>",
-                        "name": "<Your Full Name>",
-                        "email": "<Your Email Address>"
-                    }'
-
-                    # Security header
-                    HEADER='X-Siemens-Auth:test'
-
-                    # API endpoint
-                    URL='https://2xfhzfbt31.execute-api.eu-west-1.amazonaws.com/candidate-email_serverless_lambda_stage/data'
-
-                    # Invoke the API endpoint
-                    RESPONSE=$(curl -sS -X POST -H "${HEADER}" -H "Content-Type: application/json" -d "${PAYLOAD}" "${URL}")
-
-                    # Print the response
-                    echo ${RESPONSE}
-                '''
-            }
-        }
-    }
-}
