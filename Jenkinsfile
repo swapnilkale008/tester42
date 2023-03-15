@@ -31,12 +31,7 @@ pipeline{
         stage("Invoke Lambda"){
             steps{
                 echo "Invoking your AWS Lambda"
-                aws lambda invoke --function-name lambda-security_group-tf-lambda-function out.txt
-                 {
-    "StatusCode": 200,
-    "LogResult": "U1RBUlQgUmVxdWVzdElkOiAyMjVjNTNmZC1hYTg0LTQwMzgtODA0OS1iYTYwN2M5ZmZjMWQgVmVyc2lvbjogJExBVEVTVAp7Im1lc3NhZ2UiOiAiTWVzc2FnZSBwcm9jZXNzZWQgc3VjY2Vzc2Z1bGx5LiJ9CjIwMApFTkQgUmVxdWVzdElkOiAyMjVjNTNmZC1hYTg0LTQwMzgtODA0OS1iYTYwN2M5ZmZjMWQKUkVQT1JUIFJlcXVlc3RJZDogMjI1YzUzZmQtYWE4NC00MDM4LTgwNDktYmE2MDdjOWZmYzFkCUR1cmF0aW9uOiAyODY1LjA2IG1zCUJpbGxlZCBEdXJhdGlvbjogMjg2NiBtcwlNZW1vcnkgU2l6ZTogMTI4IE1CCU1heCBNZW1vcnkgVXNlZDogNDkgTUIJSW5pdCBEdXJhdGlvbjogMzQzLjUxIG1zCQo=",
-    "ExecutedVersion": "$LATEST"
-}
+                sh 'aws lambda invoke --function-name <Your Lambda Function Name> --log-type Tail --payload '{}' response.json'
                 
             }
         }
