@@ -26,7 +26,7 @@ resource "aws_lambda_function" "example" {
   role             = data.aws_iam_role.lambda.arn
   handler          = "index.handler"
   runtime          = "nodejs12.x"
-  source_code_hash = filebase64sha256("example.zip")
+  source_code_hash = filebase64sha256("test.zip")
 }
 
 # create the security group
