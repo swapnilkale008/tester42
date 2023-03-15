@@ -1,20 +1,4 @@
 
-data "aws_iam_policy_document" "lambda_policy" {
-  statement {
-    effect = "Allow"
-    actions = [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-    resources = ["arn:aws:logs:*:*:*"]
-  }
-}
-
-data "aws_iam_role" "lambda_role" {
-  name = data.aws_iam_role.lambda.arn
-}
-
 resource "aws_subnet" "private" {
   vpc_id            = data.aws_vpc.id
   cidr_block        = "10.0.1.0/24"
@@ -67,4 +51,20 @@ resource "aws_security_group" "test" {
       "0.0.0.0/0"
     ]
   }
+}
+
+data "aws_iam_policy_document" "lambda_policy" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = ["arn:aws:logs:*:*:*"]
+  }
+}
+
+data "aws_iam_role" "lambda_role" {
+  name = data.aws_iam_role.lambda.arn
 }
