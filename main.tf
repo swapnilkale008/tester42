@@ -20,7 +20,7 @@ resource "aws_route_table_association" "private" {
 
 
 resource "aws_lambda_function" "example_lambda" {
-  filename         = "lambda_function_payload.zip"
+  filename         = "${path.module}/lambda_function.py"
   function_name    = "example_lambda"
   role             = data.aws_iam_role.lambda.arn
   handler          = "lambda_function.lambda_handler"
