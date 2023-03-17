@@ -30,7 +30,10 @@ pipeline{
         }
         stage("Invoke Lambda"){
             steps{
-               sh 'aws lambda invoke --function-name example_lambda output.txt'
+                sh 'aws lambda invoke --function-name example_lambda --log-type Tail output.txt'
+                sh 'echo "LogResult: $(cat output.txt | jq -r ".LogResult")"'
+                sh 'echo "Decoded LogResult: $(cat output.txt | jq -r ".LogResult" | base64 --decode)"'
+                
             }
         }
     }
