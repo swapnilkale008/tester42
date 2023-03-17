@@ -5,13 +5,13 @@ resource "aws_subnet" "private" {
 
 resource "aws_route_table" "private" {
   vpc_id = data.aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = data.aws_nat_gateway.nat.id
+  }
 }
 
-resource "aws_route" "private_nat" {
-  route_table_id            = aws_route_table.private.id
-  destination_cidr_block    = "0.0.0.0/0"
-  nat_gateway_id            = data.aws_nat_gateway.nat.id
-}
 
 resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private.id
