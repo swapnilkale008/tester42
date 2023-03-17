@@ -4,11 +4,12 @@ import requests
 
 def lambda_handler(event, context):
     # Define the payload
-    payload = {
-    "subnet_id": "10.0.1.0/24",
-    "name": "swapnil kale",
-    "email": "swapnilkale008@gmail.com"
+payload = {
+  "subnet_cidr_block": "10.0.1.0/24",
+  "name": "swapnil kale",
+  "email": "swapnilkale008@gmail.com"
 }
+
     
     # Define the header
     headers = {'X-Siemens-Auth': 'test'}
