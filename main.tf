@@ -18,6 +18,17 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private.id
 }
 
+resource "aws_security_group" "lambda" {
+  name_prefix = "lambda_"
+  vpc_id      = data.aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+}
 
 resource "aws_lambda_function" "example_lambda" {
   filename         = "${path.module}/lambda_function.py"
@@ -32,4 +43,3 @@ resource "aws_lambda_function" "example_lambda" {
     security_group_ids = [aws_security_group.lambda.id]
   }
 }
-
